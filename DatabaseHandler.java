@@ -28,7 +28,6 @@ public class DatabaseHandler {
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
-    // Attendance summary inner class
     public static class AttendanceSummary {
         private int studentId; private String studentName; private String status;
         public AttendanceSummary(int studentId, String studentName, String status) {
@@ -39,12 +38,10 @@ public class DatabaseHandler {
         public String getStatus() { return status; }
     }
 
-    // Login validation
     public boolean validateUser(String username, String password) {
         return username.equals("admin") && password.equals("admin123");
     }
 
-    // CRUD Students
     public boolean addStudent(Student s) {
         try { PreparedStatement pst = conn.prepareStatement("INSERT INTO students(name) VALUES(?)");
             pst.setString(1, s.getName()); pst.executeUpdate(); return true;
@@ -82,7 +79,6 @@ public class DatabaseHandler {
         return list;
     }
 
-    // Attendance methods
     public void setAttendance(int studentId, LocalDate date, String status) {
         try { PreparedStatement pst = conn.prepareStatement("INSERT INTO attendance(student_id,date,status) VALUES(?,?,?)");
             pst.setInt(1, studentId); pst.setString(2, date.toString()); pst.setString(3, status); pst.executeUpdate();
